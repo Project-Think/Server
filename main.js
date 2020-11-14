@@ -10,6 +10,12 @@ config(app);
 const middleware = require("./middleware");
 middleware(app);
 
+// 生成模拟数据
+const { createMock } = require("./mock");
+createMock();
+
+console.log(DBA);
+
 // 启动服务器
 app.listen(port, () => {
   console.log(`服务器成功运行在 ${port} 端口`);

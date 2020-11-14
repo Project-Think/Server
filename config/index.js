@@ -15,5 +15,5 @@ module.exports = (app) => {
     req.method === "OPTIONS" ? res.status(204).end() : next();
   });
   // 端口
-  global.port = 80;
+  global.port = 8888;
 };
