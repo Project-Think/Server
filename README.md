@@ -1,5 +1,7 @@
 # 服务器
 
+[接口文档](./docs/接口文档.md)
+
 ## 目录结构
 
 ```bash
@@ -10,6 +12,7 @@ server
  ├── mock        # 模拟数据
  ├── database    # 数据库模块
  ├── model       # 数据模型
+ ├── middleware  # 路由
  ├── websocket   # websocket 模块
  ├── main.js     # 主入口
  └── README.md   # 说明文档
