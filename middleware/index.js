@@ -28,7 +28,7 @@ module.exports = (app) => {
       res.json({ code: 200, message: "ok", data: result });
     });
     // * 返回推荐的文章列表数据
-    app.get("/api/getRecommendArticle", (req, res) => {
+    app.get("/api/getArticleList/Recommend", (req, res) => {
       const result = DBA.filter((item) => {
         return item.isRecommend;
       });
@@ -38,7 +38,7 @@ module.exports = (app) => {
       res.json({ code: 200, message: "ok", data: result });
     });
     // * 返回热门的文章列表数据
-    app.get("/api/getHotArticle", (req, res) => {
+    app.get("/api/getArticleList/Hot", (req, res) => {
       const result = DBA.filter((item) => {
         return item.likeCount > 1000;
       });
@@ -48,14 +48,27 @@ module.exports = (app) => {
       res.json({ code: 200, message: "ok", data });
     });
     // * 返回最新的文章列表数据
-    app.get("/api/getNewArticle", (req, res) => {
+    app.get("/api/getArticleList/New", (req, res) => {
       const result = DBA.filter((item) => {
         return item.date > Date.now() - 1000 * 60 * 60 * 24 * 7;
       });
       const data = result.sort((a, b) => {
         return b.date - a.date;
       });
-      res.json({ code: 200, message: "ok", data: result });
+      res.json({ code: 200, message: "ok", data });
+    });
+    // * 根据标签返回文章列表数据
+    app.get("/api/getArticleList/byTag", (req, res) => {
+      const tag = req.query.tag;
+      if (tag) {
+        const data = DBA.filter((item) => {
+          return item.tags.includes(tag);
+        });
+        if (data.length > 200) data.length = 200;
+        res.json({ code: 200, message: "ok", data });
+      } else {
+        res.json({ code: 400, message: "缺少必要参数", data: null });
+      }
     });
   }
 };
