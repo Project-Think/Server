@@ -71,4 +71,28 @@ module.exports = (app) => {
       }
     });
   }
+  // ! 详情
+  {
+    // * 根据id返回文章数据
+    app.get("/api/getArticle/byID", (req, res) => {
+      let id = req.query.id;
+      if (id) {
+        try {
+          id = parseInt(id);
+          const data = DBA[id];
+          // 阅读量加一
+          if (data) {
+            data.viewCount++;
+          }
+          res.json({ code: 200, message: "ok", data });
+        } catch (e) {
+          res.json({ code: 400, message: "参数异常", data: null });
+        }
+      } else {
+        res.json({ code: 400, message: "缺少必要参数", data: null });
+      }
+    });
+
+    // * 文章访问量 +1
+  }
 };
