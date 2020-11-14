@@ -5,6 +5,8 @@
 ```bash
 server
  ├── docs        # 文档
+ ├── config      # 配置目录
+ ├── static      # 静态目录
  ├── mock        # 模拟数据
  ├── database    # 数据库模块
  ├── model       # 数据模型
@@ -29,4 +31,3 @@ npm i
 # 运行
 npm start
 ```
-
