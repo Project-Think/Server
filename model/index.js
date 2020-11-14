@@ -27,26 +27,40 @@ class Question {
   constructor(obj) {
     this.id = obj.id;
     this.title = obj.title;
-    this.quizzer = obj.quizzer; // 提问者
+    this.quizzer = obj.quizzer || "无名氏"; // 提问者
     this.tags = obj.tags || []; // 标签列表
     this.likeCount = obj.likeCount || 0; // 点赞数
     this.followCount = obj.followCount || 0; // 关注数
     this.date = obj.date || Date.now() - 10000; // 发布时间
     this.content = obj / content || "这是问题"; // 问题内容
-    this.answers = obj.answers || []; // 回答列表
     this.newAnswersTime = obj.newAnswersTime || 0; // 最新回答时间
   }
 }
 
 // ! 回答对象
-class Answer {}
-
-// ! 评论对象
-class Comment {}
+class Answer {
+  constructor(obj) {
+    this.id = obj.id;
+    this.questionID = obj.questionID; // 对应的问题id
+    this.answer = obj.answer || "无名氏"; // 回答者
+    this.content = obj.content; // 内容
+    this.likeCount = obj.likeCount || 0; // 点赞数
+    this.date = obj.date || Date.now() - 5000; // 发布时间
+  }
+}
 
 // ! 用户对象
-class User {}
+class User {
+  constructor(obj) {
+    this.id = obj.id;
+    this.name = obj.name;
+    this.likeArticleList = obj.likeArticleList; // 点赞的文章列表id
+  }
+}
 
 module.exports = {
   Article,
+  Question,
+  Answer,
+  User,
 };
