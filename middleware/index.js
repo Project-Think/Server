@@ -8,48 +8,49 @@ module.exports = (app) => {
   // ! 首页接口数据
   {
     // * 返回标签列表数据
-    app.get("/api/getTags", (req, res) => {
-      const { article_tags: result } = require("../mock/const");
-      res.json({ code: 200, message: "ok", data: result });
+    app.get("/api/tags", (req, res) => {
+      const { article_tags: data } = require("../mock/const");
+      res.json({ code: 200, message: "ok", data });
     });
     // * 返回推荐的文章列表数据
-    app.get("/api/getArticleList/recommend", (req, res) => {
-      const result = DBA.filter((item) => {
+    app.get("/api/articleList/recommend", (req, res) => {
+      const data = DBA.filter((item) => {
         return item.isRecommend;
       });
-      if (result.length > 100) {
-        result.length = 100;
-      }
-      res.json({ code: 200, message: "ok", data: result });
+      if (data.length > 100) data.length = 100;
+      res.json({ code: 200, message: "ok", data });
     });
     // * 返回热门的文章列表数据
-    app.get("/api/getArticleList/hot", (req, res) => {
-      const result = DBA.filter((item) => {
+    app.get("/api/articleList/hot", (req, res) => {
+      let data = DBA.filter((item) => {
         return item.likeCount > 1000;
       });
-      const data = result.sort((a, b) => {
+      data = data.sort((a, b) => {
         return b.likeCount - a.likeCount;
       });
+      if (data.length > 100) data.length = 100;
+
       res.json({ code: 200, message: "ok", data });
     });
     // * 返回最新的文章列表数据
-    app.get("/api/getArticleList/new", (req, res) => {
-      const result = DBA.filter((item) => {
+    app.get("/api/articleList/new", (req, res) => {
+      const data = DBA.filter((item) => {
         return item.date > Date.now() - 1000 * 60 * 60 * 24 * 7;
       });
-      const data = result.sort((a, b) => {
+      data = data.sort((a, b) => {
         return b.date - a.date;
       });
+      if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
     // * 根据标签返回文章列表数据
-    app.get("/api/getArticleList/byTag", (req, res) => {
+    app.get("/api/articleList/byTag", (req, res) => {
       const tag = req.query.tag;
       if (tag) {
         const data = DBA.filter((item) => {
           return item.tags.includes(tag);
         });
-        if (data.length > 200) data.length = 200;
+        if (data.length > 100) data.length = 100;
         res.json({ code: 200, message: "ok", data });
       } else {
         res.json({ code: 400, message: "缺少必要参数", data: null });
@@ -59,7 +60,7 @@ module.exports = (app) => {
   // ! 详情
   {
     // * 根据id返回文章数据
-    app.get("/api/getArticle/byID", (req, res) => {
+    app.get("/api/article", (req, res) => {
       let id = req.query.id;
       if (id) {
         try {
@@ -97,12 +98,13 @@ module.exports = (app) => {
   {
     // * 获取最新问答列表
     app.get("/api/question/new", (req, res) => {
-      const result = DBQ.filter((item) => {
+      const data = DBQ.filter((item) => {
         return item.date > Date.now() - 1000 * 60 * 60 * 24 * 7;
       });
-      const data = result.sort((a, b) => {
+      data = data.sort((a, b) => {
         return b.date - a.date;
       });
+      if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
     // * 获取等待回答列表
@@ -110,16 +112,22 @@ module.exports = (app) => {
       const data = DBQ.filter((item) => {
         return item.answers.length === 0;
       });
+      if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
     // * 获取热门回答列表
     app.get("/api/question/hot", (req, res) => {
-      let data = DBQ.filter((item) => {
+      let data1 = DBP.filter((item) => {
         return item.viewCount > 8000;
       });
-      data = data.sort((a, b) => {
+      data1 = data1.sort((a, b) => {
         return b.likeCount - a.likeCount;
       });
+      let data = data1.map((item) => {
+        DBQ[item.questionID].answers = item;
+        return DBQ[item.questionID];
+      });
+      if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
   }

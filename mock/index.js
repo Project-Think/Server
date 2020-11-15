@@ -74,9 +74,11 @@ const createMock = () => {
   console.log(`${Date.now()} 生成500条问题数据成功`);
 
   // 生成10000条答案
+  global.DBP = [];
   for (let i = 0; i < 10000; i++) {
     const j = Random.integer(0, 400);
-    DBQ[j].answers.push(
+    DBQ[j].answers.push(i);
+    DBP.push(
       new Answer({
         id: i,
         questionID: j,
