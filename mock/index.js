@@ -2,11 +2,20 @@
 
 // 生成模拟数据
 const createMock = () => {
-  const { Article, Question, Answer, User } = require("../model");
+  const {
+    Article,
+    Question,
+    Answer,
+    User,
+    Active,
+    Course,
+  } = require("../model");
   const {
     article_title: T1,
     article_tags: T2,
-    article_content,
+    answer_title,
+    active_title,
+    course_title,
   } = require("./const");
   const { mock, Random } = require("mockjs");
 
@@ -59,14 +68,14 @@ const createMock = () => {
       new Question(
         mock({
           id: i,
-          title: T1[Random.integer(0, T1.length - 1)],
+          title: answer_title[Random.integer(0, answer_title.length - 1)],
           userID: Random.integer(0, 499),
           tags: [T2[Random.integer(0, T2.length - 1)]],
           likeCount: Random.integer(0, 1000),
           followCount: Random.integer(0, 500),
           viewCount: Random.integer(0, 10000),
           date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 12),
-          content: Random.cword(article_content, 100, 1000),
+          content: mock("@cparagraph(5, 100)"),
         })
       )
     );
@@ -92,6 +101,42 @@ const createMock = () => {
   }
 
   console.log(`${Date.now()} 生成10000个答案数据成功`);
+
+  // 生成100个课程
+  global.DBS = [];
+  for (let i = 0; i < 100; i++) {
+    DBS.push(
+      new Course(mock({
+        id: i,
+        title: course_title[Random.integer(0, course_title.length - 1)],
+        cost: Random.integer(10, 100), // 当前价格
+        originCost: Random.integer(100, 500), // 原价
+        imgUrl: "",
+        date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
+        "isRecommend|1": true,
+      }))
+    );
+  }
+  console.log(`${Date.now()} 生成100个课程数据成功`);
+
+  // 生成100个活动
+  global.DBX = [];
+  for (let i = 0; i < 100; i++) {
+    DBS.push(
+      new Course({
+        id: i,
+        title: active_title[Random.integer(0, active_title.length - 1)],
+        imgUrl: "",
+        time: Date.now() + Random.integer(0, 1000 * 60 * 60 * 24 * 365),
+        date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
+        city: "深圳",
+        type: "无",
+      })
+    );
+  }
+
+  console.log(`${Date.now()} 生成100个活动数据成功`);
+  console.log(DBX);
 };
 
 module.exports = { createMock };

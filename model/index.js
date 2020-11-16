@@ -74,9 +74,37 @@ class Answer {
   }
 }
 
+// ! 课程对象
+class Course {
+  constructor(obj) {
+    this.id = obj.id;
+    this.title = obj.title;
+    this.imgUrl = obj.imgUrl || "";
+    this.cost = obj.cost;
+    this.originCost = obj.originCost; // 原价
+    this.isRecommend = obj.isRecommend || false; // 是否为推荐课程
+    this.date = obj.date; // 发布时间戳
+  }
+}
+
+// ! 活动对象
+class Active {
+  constructor(obj) {
+    this.id = obj.id;
+    this.title = obj.title;
+    this.imgUrl = obj.imgUrl; // 图片
+    this.time = obj.time;
+    this.date = obj.date;
+    this.city = obj.city || "深圳";
+    this.type = obj.type || "未归类";
+  }
+}
+
 module.exports = {
   Article,
   Question,
   Answer,
   User,
+  Course,
+  Active,
 };
