@@ -1,6 +1,10 @@
 // 服务器主文件
 const express = require("express");
 const app = express();
+const path = require("path");
+
+// 静态目录
+app.use(express.static(path.join(__dirname, "static")));
 
 // 引入配置
 const config = require("./config");

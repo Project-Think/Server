@@ -126,7 +126,7 @@ module.exports = (app) => {
         const temp = data[index].answers;
         data[index].answers = [];
         temp.forEach((item2, index2) => {
-          data[index2].answers.push(DBP[item2]);
+          data[index].answers.push(DBP[item2]);
         });
       });
       console.log(data);
@@ -185,5 +185,10 @@ module.exports = (app) => {
       if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
+  }
+  // ! 课程
+  {
+    // * 返回推荐课程列表
+
   }
 };
