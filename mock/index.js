@@ -25,7 +25,6 @@ const createMock = () => {
     );
   }
   console.log(`${Date.now()} 生成1000条用户数据成功`);
-  console.log(DBU);
 
   // 生成1000条文章数据
   global.DBA = []; // 这是一个全局的文章数据数组

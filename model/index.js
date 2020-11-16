@@ -53,6 +53,7 @@ class Question {
     this.content = obj.content || "这是问题"; // 问题内容
     this.newAnswersTime = obj.newAnswersTime || 0; // 最新回答时间
     this.answers = obj.answers || []; // 回答
+    this.comments = obj.comments || []; // 评论
   }
 }
 

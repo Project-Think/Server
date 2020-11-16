@@ -33,3 +33,5 @@ const article_content = `
 `;
 
 module.exports = { article_title, article_tags, article_content };
+
+const course_tags = {};
