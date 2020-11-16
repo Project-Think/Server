@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   // ! 首页接口数据
   {
-    // * 返回标签列表数据
+    // * 返回标签列表数据 ✔
     app.get("/api/tags", (req, res) => {
       const { article_tags: data } = require("../mock/const");
       res.json({ code: 200, message: "ok", data });
@@ -22,8 +22,25 @@ module.exports = (app) => {
     });
     // * 返回热门的文章列表数据
     app.get("/api/articleList/hot", (req, res) => {
+      const type = req.query.type;
+      let time = 1000 * 60 * 60 * 24;
+      switch (type) {
+        case "":
+        case "day":
+          time = 1000 * 60 * 60 * 24;
+          break;
+        case "week":
+          time = 1000 * 60 * 60 * 24 * 7;
+          break;
+        case "mouth":
+          time = 1000 * 60 * 60 * 24 * 30;
+          break;
+      }
       let data = DBA.filter((item) => {
-        return item.likeCount > 1000;
+        return item.date > Date.now() - time;
+      });
+      data = data.filter((item) => {
+        return item.likeCount > 500;
       });
       data = data.sort((a, b) => {
         return b.likeCount - a.likeCount;

@@ -1,5 +1,15 @@
 // 数据模型
 
+// ! 用户对象
+class User {
+  constructor(obj) {
+    this.id = obj.id;
+    this.name = obj.name;
+    this.password = obj.password || "123456"; // 密码
+    this.likeArticleList = obj.likeArticleList || []; // 点赞的文章列表id
+  }
+}
+
 // ! 文章对象
 class Article {
   constructor(obj) {
@@ -13,12 +23,14 @@ class Article {
     this.type = obj.type || "default"; // 文章类型
     this.tags = obj.tags || []; // 文章标签列表
     this.isRecommend = obj.isRecommend || false; // 是否为推荐文章
+    this.isOrigin = obj.isOrigin || true; // 是否为原创文章
     this.likeCount = obj.likeCount || 0; // 点赞数
     this.viewCount = obj.viewCount || 0; // 阅读数
     this.date = obj.date || Date.now(); // 发布时间戳
     this.content = obj.content || "这是文章内容。"; // 文章内容
     this.comments = obj.comments || []; // 评论列表
     this.url = `/a/${obj.id}`; // 文章链接
+    this.imgUrl = obj.imgUrl || ""; // 文章图片链接
   }
 }
 
@@ -57,16 +69,6 @@ class Answer {
     this.likeCount = obj.likeCount || 0; // 点赞数
     this.viewCount = obj.viewCount || 0; // 阅读数
     this.date = obj.date || Date.now() - 5000; // 发布时间
-  }
-}
-
-// ! 用户对象
-class User {
-  constructor(obj) {
-    this.id = obj.id;
-    this.name = obj.name;
-    this.password = obj.password || "123456"; // 密码
-    this.likeArticleList = obj.likeArticleList || []; // 点赞的文章列表id
   }
 }
 

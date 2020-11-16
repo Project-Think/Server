@@ -37,10 +37,14 @@ const createMock = () => {
           "type|1": ["default", "news"],
           tags: [T2[Random.integer(0, T2.length - 1)]],
           "isRecommend|1": true,
-          likeCount: Random.integer(0, 3000),
-          viewCount: Random.integer(0, 100000),
-          date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 12),
-          content: Random.cword(article_content, 100, 1000),
+          "isOrigin|1": true,
+          likeCount: Random.integer(0, 1000),
+          viewCount: Random.integer(0, 10000),
+          date:
+            Date.now() -
+            Random.integer(1000 * 60, 1000 * 60 * 60 * 24 * 30 * 12),
+          content: mock("@cparagraph(5, 300)"),
+          imgUrl: "",
         })
       )
     );
