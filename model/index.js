@@ -7,6 +7,7 @@ class User {
     this.name = obj.name;
     this.password = obj.password || "123456"; // 密码
     this.likeArticleList = obj.likeArticleList || []; // 点赞的文章列表id
+    this.token = obj.token || "abcdef"; // 安全字符串
   }
 }
 

@@ -115,12 +115,21 @@ module.exports = (app) => {
   {
     // * 获取最新问答列表
     app.get("/api/question/new", (req, res) => {
-      const data = DBQ.filter((item) => {
+      let data = DBQ.filter((item) => {
         return item.date > Date.now() - 1000 * 60 * 60 * 24 * 7;
       });
+      console.log(data);
       data = data.sort((a, b) => {
         return b.date - a.date;
       });
+      data.forEach((item, index) => {
+        const temp = data[index].answers;
+        data[index].answers = [];
+        temp.forEach((item) => {
+          data[index].answers.push(DBP[item]);
+        });
+      });
+      console.log(data);
       if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
@@ -134,7 +143,25 @@ module.exports = (app) => {
     });
     // * 获取热门回答列表
     app.get("/api/question/hot", (req, res) => {
+      const type = req.query.type;
+      let time = 1000 * 60 * 60 * 24;
+      switch (type) {
+        case "":
+        case "day":
+          time = 1000 * 60 * 60 * 24;
+          break;
+        case "week":
+          time = 1000 * 60 * 60 * 24 * 7;
+          break;
+        case "mouth":
+          time = 1000 * 60 * 60 * 24 * 30;
+          break;
+      }
       let data1 = DBP.filter((item) => {
+        return item.date > Date.now() - time;
+      });
+
+      data1 = data1.filter((item) => {
         return item.viewCount > 8000;
       });
       data1 = data1.sort((a, b) => {
@@ -143,6 +170,17 @@ module.exports = (app) => {
       let data = data1.map((item) => {
         DBQ[item.questionID].answers = item;
         return DBQ[item.questionID];
+      });
+      if (data.length > 100) data.length = 100;
+      res.json({ code: 200, message: "ok", data });
+    });
+  }
+  // ! 资讯
+  {
+    // * 返回资讯列表
+    app.get("/api/news", (req, res) => {
+      const data = DBA.filter((item) => {
+        return item.type === "news";
       });
       if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });

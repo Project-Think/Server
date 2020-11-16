@@ -19,11 +19,13 @@ const createMock = () => {
           id: i,
           name: mock("@cname"),
           password: Random.string(),
+          token: Random.string(63),
         })
       )
     );
   }
   console.log(`${Date.now()} 生成1000条用户数据成功`);
+  console.log(DBU);
 
   // 生成1000条文章数据
   global.DBA = []; // 这是一个全局的文章数据数组
@@ -64,12 +66,7 @@ const createMock = () => {
           likeCount: Random.integer(0, 1000),
           followCount: Random.integer(0, 500),
           viewCount: Random.integer(0, 10000),
-          date:
-            Date.now() -
-            Random.integer(
-              1000 * 60 * 60 * 24 * 30 * 4,
-              1000 * 60 * 60 * 24 * 30 * 11
-            ),
+          date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 12),
           content: Random.cword(article_content, 100, 1000),
         })
       )
@@ -90,7 +87,7 @@ const createMock = () => {
         content: mock("@cparagraph(5, 300)"),
         likeCount: Random.integer(0, 1000),
         viewCount: Random.integer(0, 10000),
-        date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 4),
+        date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 10),
       })
     );
   }
