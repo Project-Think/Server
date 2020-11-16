@@ -188,5 +188,26 @@ module.exports = (app) => {
       if (data.length > 6) data.length = 6;
       res.json({ code: 200, message: "ok", data });
     });
+    // * 返回新上好课列表
+    app.get("/api/course/new", (req, res) => {
+      let data = DBS.filter((item) => {
+        return item.date > Date.now() - 86400 * 1000 * 30;
+      });
+      data = data.sort((a, b) => {
+        return b.date - a.date;
+      });
+      if (data.length > 6) data.length = 6;
+      res.json({ code: 200, message: "ok", data });
+    });
+  }
+  // ! 活动
+  {
+    // * 返回活动列表数据
+    app.get("/api/events/list", (req, res) => {
+      let data = DBX.filter((item) => {
+        return true;
+      });
+      res.json({ code: 200, message: "ok", data });
+    });
   }
 };

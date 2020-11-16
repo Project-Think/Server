@@ -128,8 +128,8 @@ const createMock = () => {
   // 生成100个活动
   global.DBX = [];
   for (let i = 0; i < 100; i++) {
-    DBS.push(
-      new Course({
+    DBX.push(
+      new Active({
         id: i,
         title: active_title[Random.integer(0, active_title.length - 1)],
         imgUrl:
@@ -138,14 +138,13 @@ const createMock = () => {
           ".jpg",
         time: Date.now() + Random.integer(0, 1000 * 60 * 60 * 24 * 365),
         date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
-        city: "深圳",
+        city: Random.city(),
         type: "无",
       })
     );
   }
 
   console.log(`${Date.now()} 生成100个活动数据成功`);
-  console.log(DBX);
 };
 
 module.exports = { createMock };
