@@ -125,8 +125,8 @@ module.exports = (app) => {
       data.forEach((item, index) => {
         const temp = data[index].answers;
         data[index].answers = [];
-        temp.forEach((item) => {
-          data[index].answers.push(DBP[item]);
+        temp.forEach((item2, index2) => {
+          data[index2].answers.push(DBP[item2]);
         });
       });
       console.log(data);

@@ -73,6 +73,7 @@ const createMock = () => {
           tags: [T2[Random.integer(0, T2.length - 1)]],
           likeCount: Random.integer(0, 1000),
           followCount: Random.integer(0, 500),
+          collectionCount: Random.integer(0, 100),
           viewCount: Random.integer(0, 10000),
           date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30 * 12),
           content: mock("@cparagraph(5, 100)"),
@@ -106,15 +107,17 @@ const createMock = () => {
   global.DBS = [];
   for (let i = 0; i < 100; i++) {
     DBS.push(
-      new Course(mock({
-        id: i,
-        title: course_title[Random.integer(0, course_title.length - 1)],
-        cost: Random.integer(10, 100), // 当前价格
-        originCost: Random.integer(100, 500), // 原价
-        imgUrl: "",
-        date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
-        "isRecommend|1": true,
-      }))
+      new Course(
+        mock({
+          id: i,
+          title: course_title[Random.integer(0, course_title.length - 1)],
+          cost: Random.integer(10, 100), // 当前价格
+          originCost: Random.integer(100, 500), // 原价
+          imgUrl: "",
+          date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
+          "isRecommend|1": true,
+        })
+      )
     );
   }
   console.log(`${Date.now()} 生成100个课程数据成功`);

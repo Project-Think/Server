@@ -19,6 +19,7 @@ class Article {
     this.user = {
       id: obj.userID,
       name: DBU[obj.userID].name,
+      blog: "Web进阶", // 专栏
       url: `/u/${obj.userID}`, // 用户链接
     }; // 文章作者名
     this.type = obj.type || "default"; // 文章类型
@@ -27,6 +28,7 @@ class Article {
     this.isOrigin = obj.isOrigin || true; // 是否为原创文章
     this.likeCount = obj.likeCount || 0; // 点赞数
     this.viewCount = obj.viewCount || 0; // 阅读数
+    this.collectionCount = obj.collectionCount || 0; // 收藏数
     this.date = obj.date || Date.now(); // 发布时间戳
     this.content = obj.content || "这是文章内容。"; // 文章内容
     this.comments = obj.comments || []; // 评论列表
