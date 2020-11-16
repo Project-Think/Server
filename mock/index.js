@@ -53,7 +53,8 @@ const createMock = () => {
           date:
             Date.now() - Random.integer(1000 * 60, 1000 * 60 * 60 * 24 * 30),
           content: mock("@cparagraph(5, 300)"),
-          imgUrl: "http://39.108.227.2:8888/img/" + Random.integer(0, 6) + ".jpg",
+          imgUrl:
+            "http://39.108.227.2:8888/img/" + Random.integer(0, 6) + ".jpg",
         })
       )
     );
@@ -112,7 +113,10 @@ const createMock = () => {
           title: course_title[Random.integer(0, course_title.length - 1)],
           cost: Random.integer(10, 100), // 当前价格
           originCost: Random.integer(100, 500), // 原价
-          imgUrl: "http://39.108.227.2:8888/img/course" + Random.integer(0, 6) + ".jpg",,
+          imgUrl:
+            "http://39.108.227.2:8888/img/course/" +
+            Random.integer(0, 6) +
+            ".jpg",
           date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
           "isRecommend|1": true,
         })
@@ -128,7 +132,10 @@ const createMock = () => {
       new Course({
         id: i,
         title: active_title[Random.integer(0, active_title.length - 1)],
-        imgUrl: "http://39.108.227.2:8888/img/course" + Random.integer(0, 6) + ".jpg",,
+        imgUrl:
+          "http://39.108.227.2:8888/img/course/" +
+          Random.integer(0, 6) +
+          ".jpg",
         time: Date.now() + Random.integer(0, 1000 * 60 * 60 * 24 * 365),
         date: Date.now() - Random.integer(0, 1000 * 60 * 60 * 24 * 30),
         city: "深圳",

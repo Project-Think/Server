@@ -122,14 +122,6 @@ module.exports = (app) => {
       data = data.sort((a, b) => {
         return b.date - a.date;
       });
-      data.forEach((item, index) => {
-        const temp = data[index].answers;
-        data[index].answers = [];
-        temp.forEach((item2, index2) => {
-          data[index].answers.push(DBP[item2]);
-        });
-      });
-      console.log(data);
       if (data.length > 100) data.length = 100;
       res.json({ code: 200, message: "ok", data });
     });
@@ -189,6 +181,12 @@ module.exports = (app) => {
   // ! 课程
   {
     // * 返回推荐课程列表
-
+    app.get("/api/course/recommend", (req, res) => {
+      let data = DBS.filter((item) => {
+        return item.isRecommend;
+      });
+      if (data.length > 6) data.length = 6;
+      res.json({ code: 200, message: "ok", data });
+    });
   }
 };
