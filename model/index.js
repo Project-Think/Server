@@ -8,6 +8,8 @@ class User {
     this.password = obj.password || "123456"; // 密码
     this.likeArticleList = obj.likeArticleList || []; // 点赞的文章列表id
     this.token = obj.token || "abcdef"; // 安全字符串
+    this.rp = obj.rp || 0; // 声望
+    this.headImgUrl = "http://api.btstu.cn/sjtx/api.php?lx=c1&format=images"; // 头像
   }
 }
 

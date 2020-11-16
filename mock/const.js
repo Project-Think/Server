@@ -29,7 +29,7 @@ const article_title = [
 ];
 
 const answer_title = [
-  "echarts中雷达图分数显示的位置怎么调整?",
+  "echarts 中雷达图分数显示的位置怎么调整?",
   "css 怎样获取变量的值?",
   "怎么匹配一段字符串的正则表达式",
   "div用margin 0 auto居中，怎么在向左偏移100px",

@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   // ! 首页接口数据
   {
-    // * 返回标签列表数据 ✔
+    // * 返回标签列表数据
     app.get("/api/tags", (req, res) => {
       const { article_tags: data } = require("../mock/const");
       res.json({ code: 200, message: "ok", data });
@@ -51,7 +51,7 @@ module.exports = (app) => {
     });
     // * 返回最新的文章列表数据
     app.get("/api/articleList/new", (req, res) => {
-      const data = DBA.filter((item) => {
+      let data = DBA.filter((item) => {
         return item.date > Date.now() - 1000 * 60 * 60 * 24 * 7;
       });
       data = data.sort((a, b) => {
