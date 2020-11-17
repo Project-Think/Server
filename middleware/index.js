@@ -273,14 +273,14 @@ module.exports = (app) => {
         message: "ok",
         data: DBU[DBU.length - 1],
       });
-      console.log(DBU);
     });
     // ! 登录
     app.post("/api/login", (req, res) => {
       const result = req.body;
-      let { user_name: name, user_password: password } = result;
+      console.log(result);
+      let { user_phone: phone, user_password: password } = result;
       // ! 简单校验
-      if (!(name || password)) {
+      if (!(phone || password)) {
         res.json({ code: 400, message: "数据异常，请重新输入", data: null });
         return;
       }
@@ -289,7 +289,7 @@ module.exports = (app) => {
       // ! 检查这个用户是否存在
       let i = -1;
       DBU.forEach((item, index) => {
-        if (item.name === name || item.phone === name) {
+        if (item.phone === phone) {
           i = index;
         }
       });
