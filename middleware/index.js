@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const md5 = require("blueimp-md5");
 
 module.exports = (app) => {
-  app.use(bodyParser.urlencoded({ extended: false }));
-
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   // ! 首页接口数据
   {
     // * 返回标签列表数据
@@ -111,6 +111,11 @@ module.exports = (app) => {
         res.json({ code: 400, message: "缺少必要参数", data: null });
       }
     });
+
+    // * 根据id返回用户数据
+    app.get("/api/userAll", (req, res) => {
+      res.json({ code: 200, message: "ok", data: DBU });
+    });
   }
   // ! 问答接口数据
   {
@@ -173,7 +178,7 @@ module.exports = (app) => {
     // * 返回资讯列表
     app.get("/api/news", (req, res) => {
       const data = DBA.filter((item) => {
-        return item.type === "news";
+        return item.type[0] === "news";
       });
       if (data.length > 500) data.length = 500;
       res.json({ code: 200, message: "ok", data });
@@ -231,6 +236,7 @@ module.exports = (app) => {
     // ! 注册
     app.post("/api/register", (req, res) => {
       const result = req.body;
+      console.log(result);
       let {
         user_name: name,
         user_phone: phone,
@@ -244,12 +250,16 @@ module.exports = (app) => {
       // 加密
       password = md5(password);
       // ! 检查这个用户是否存在
+      let flag = 0;
       DBU.forEach((item) => {
         if (item.name === name) {
-          res.json({ code: 400, message: "该用户已经存在", data: null });
-          return;
+          flag = 1;
         }
       });
+      if (flag) {
+        res.json({ code: 400, message: "该用户已经存在", data: null });
+        return;
+      }
       // 存入数据库
       const { Random: R } = require("mockjs");
       DBU.push({ id: DBU.length, name, password, phone, token: R.string(63) });
