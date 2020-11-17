@@ -225,7 +225,6 @@ module.exports = (app) => {
         res.json({ code: 400, message: "缺少必要参数", data: null });
       }
     });
-    
   }
   // ! 登录注册
   {
@@ -303,8 +302,16 @@ module.exports = (app) => {
         data: DBU[i],
       });
     });
-    // 登出
+    // ! 登出
     app.post("/api/logout", (req, res) => {
+      if (!req.session.isLogin) {
+        res.json({
+          code: 400,
+          message: "登出失败",
+          data: null,
+        });
+        return;
+      }
       // 设置cookie
       req.session.isLogin = false;
       res.json({
