@@ -9,6 +9,11 @@ app.use(express.static(path.join(__dirname, "static")));
 // 引入配置
 const config = require("./config");
 config(app);
+// 设置WebSocket
+const expressWS = require("express-ws");
+const ws = require("./websocket");
+expressWS(app);
+app.use("/websocket", ws);
 
 // 开启中间件
 const middleware = require("./middleware");

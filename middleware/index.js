@@ -210,4 +210,17 @@ module.exports = (app) => {
       res.json({ code: 200, message: "ok", data });
     });
   }
+  // ! 登录注册
+  {
+    // ! 注册
+    app.post("/api/register", (req, res) => {
+      const result = req.body;
+      const { name, phone, password } = result;
+      // 正则校验
+      // 存入数据库
+      // 返回一个token
+
+      res.json({ name, phone, password });
+    });
+  }
 };

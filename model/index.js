@@ -5,6 +5,7 @@ class User {
   constructor(obj) {
     this.id = obj.id;
     this.name = obj.name;
+    this.phone = obj.phone;
     this.password = obj.password || "123456"; // 密码
     this.likeArticleList = obj.likeArticleList || []; // 点赞的文章列表id
     this.token = obj.token || "abcdef"; // 安全字符串
@@ -98,6 +99,7 @@ class Active {
     this.title = obj.title;
     this.imgUrl = obj.imgUrl; // 图片
     this.time = obj.time;
+    this.timeEnd = obj.time + obj.time2 * 60 * 60 * 1000;
     this.date = obj.date;
     this.city = obj.city || "深圳";
     this.type = obj.type || "未归类";

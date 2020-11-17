@@ -100,20 +100,16 @@ const createMock = () => {
   global.DBS = [];
   for (let id = 0; id < 100; id++) {
     DBS.push(
-      new Course(
-        {
-          id,
-          title: R.pick(course_title),
-          cost: R.integer(10, 100), // 当前价格
-          originCost: R.integer(100, 500), // 原价
-          imgUrl:
-            "http://39.108.227.2:8888/img/course/" +
-            R.integer(0, 6) +
-            ".jpg",
-          date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30),
-          isRecommend: R.boolean(),
-        }
-      )
+      new Course({
+        id,
+        title: R.pick(course_title),
+        cost: R.integer(10, 100), // 当前价格
+        originCost: R.integer(100, 500), // 原价
+        imgUrl:
+          "http://39.108.227.2:8888/img/course/" + R.integer(0, 6) + ".jpg",
+        date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30),
+        isRecommend: R.boolean(),
+      })
     );
   }
   console.log(`${Date.now()} 生成100个课程数据成功`);
@@ -126,10 +122,9 @@ const createMock = () => {
         id,
         title: R.pick(active_title),
         imgUrl:
-          "http://39.108.227.2:8888/img/course/" +
-          R.integer(0, 6) +
-          ".jpg",
+          "http://39.108.227.2:8888/img/course/" + R.integer(0, 6) + ".jpg",
         time: Date.now() + R.integer(0, 1000 * 60 * 60 * 24 * 365),
+        time2: R.integer(1, 72),
         date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30),
         city: R.city(),
         type: "无",
