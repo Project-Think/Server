@@ -27,6 +27,7 @@ const createMock = () => {
         id,
         name: R.cname(),
         password: R.string("lower", 6, 32),
+        phone: "12345678901",
         token: R.string(63),
         rp: R.integer(0, 10000), // 声望
       })

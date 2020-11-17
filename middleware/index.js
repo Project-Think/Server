@@ -1,9 +1,10 @@
 // 中间件
+const bodyParser = require("body-parser");
+// 加密密码用的
+const md5 = require("blueimp-md5");
+
 module.exports = (app) => {
-  const bodyParser = require("body-parser");
   app.use(bodyParser.urlencoded({ extended: false }));
-  // 模拟数据
-  const data = require("../mock");
 
   // ! 首页接口数据
   {
@@ -215,12 +216,75 @@ module.exports = (app) => {
     // ! 注册
     app.post("/api/register", (req, res) => {
       const result = req.body;
-      const { name, phone, password } = result;
-      // 正则校验
+      const {
+        user_name: name,
+        user_phone: phone,
+        user_password: password,
+      } = result;
+      // ! 简单校验
+      if (!(name || phone || password)) {
+        res.json({ code: 400, message: "数据不完整，请检查数据", data: null });
+        return;
+      }
+      // 加密
+      password = md5(password);
+      // ! 检查这个用户是否存在
+      DBU.forEach((item) => {
+        if (item.name === name) {
+          res.json({ code: 400, message: "该用户已经存在", data: null });
+          return;
+        }
+      });
       // 存入数据库
-      // 返回一个token
-
-      res.json({ name, phone, password });
+      const { Random: R } = require("mockjs");
+      DBU.push({ id: DBU.length, name, password, phone, token: R.string(63) });
+      // 设置cookie
+      let hour = 3600000;
+      req.session.cookie.expires = new Date(Date.now() + hour);
+      req.session.cookie.maxAge = hour;
+      req.session.isLogin = true;
+      res.json({
+        code: 200,
+        message: "注册并成功登录！",
+        data: DBU[DBU.length - 1],
+      });
+      console.log(DBU);
+    });
+    // ! 登录
+    app.post("/api/login", (req, res) => {
+      const result = req.body;
+      const { user_name: name, user_password: password } = result;
+      // ! 简单校验
+      if (!(name || password)) {
+        res.json({ code: 400, message: "数据异常，请重新输入", data: null });
+        return;
+      }
+      // 加密
+      password = md5(password);
+      // ! 检查这个用户是否存在
+      let i = -1;
+      DBU.forEach((item, index) => {
+        if (item.name === name || item.phone === name) {
+          i = index;
+        }
+      });
+      if (i === -1) {
+        res.json({
+          code: 400,
+          message: "账号或者密码错误",
+          data: null,
+        });
+      }
+      // 设置cookie
+      let hour = 3600000;
+      req.session.cookie.expires = new Date(Date.now() + hour);
+      req.session.cookie.maxAge = hour;
+      req.session.isLogin = true;
+      res.json({
+        code: 200,
+        message: "成功登录！",
+        data: DBU[i],
+      });
     });
   }
 };

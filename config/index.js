@@ -1,7 +1,6 @@
 // 配置目录
 const express = require("express");
 module.exports = (app) => {
-  
   // 设置跨域
   app.use("/api", (req, res, next) => {
     // 设置响应头
