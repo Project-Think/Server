@@ -245,7 +245,7 @@ module.exports = (app) => {
       req.session.isLogin = true;
       res.json({
         code: 200,
-        message: "注册并成功登录！",
+        message: "ok",
         data: DBU[DBU.length - 1],
       });
       console.log(DBU);
@@ -282,9 +282,22 @@ module.exports = (app) => {
       req.session.isLogin = true;
       res.json({
         code: 200,
-        message: "成功登录！",
+        message: "ok",
         data: DBU[i],
       });
     });
+    // 登出
+    app.post("/api/logout", (req, res) => {
+      // 设置cookie
+      let hour = 3600000;
+      req.session.cookie.expires = new Date(Date.now() + hour);
+      req.session.cookie.maxAge = hour;
+      req.session.isLogin = false;
+      res.json({
+        code: 200,
+        message: "ok",
+        data: DBU[i],
+      });
+    }
   }
 };
