@@ -35,9 +35,9 @@ const createMock = () => {
   }
   console.log(`${Date.now()} 生成100条用户数据成功`);
 
-  // 生成1000条文章数据
+  // 生成10000条文章数据
   global.DBA = []; // 这是一个全局的文章数据数组
-  for (let id = 0; id < 1000; id++) {
+  for (let id = 0; id < 10000; id++) {
     DBA.push(
       new Article({
         id,
@@ -57,9 +57,9 @@ const createMock = () => {
   }
   console.log(`${Date.now()} 生成1000条文章数据成功`);
 
-  // 生成500条问题
+  // 生成1000条问题
   global.DBQ = []; // 这是一个全局的问题数据数组
-  for (let id = 0; id < 500; id++) {
+  for (let id = 0; id < 1000; id++) {
     DBQ.push(
       new Question({
         id,
@@ -70,16 +70,16 @@ const createMock = () => {
         followCount: R.integer(0, 500),
         collectionCount: R.integer(0, 100),
         viewCount: R.integer(0, 10000),
-        date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30 * 12),
+        date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30 * 2),
         content: R.cparagraph(5, 100),
       })
     );
   }
   console.log(`${Date.now()} 生成500条问题数据成功`);
 
-  // 生成10000条答案
+  // 生成5000条答案
   global.DBP = [];
-  for (let id = 0; id < 10000; id++) {
+  for (let id = 0; id < 5000; id++) {
     const j = R.integer(0, 400);
     DBQ[j].answers.push(id);
     DBP.push(
@@ -115,9 +115,9 @@ const createMock = () => {
   }
   console.log(`${Date.now()} 生成100个课程数据成功`);
 
-  // 生成100个活动
+  // 生成20个活动
   global.DBX = [];
-  for (let id = 0; id < 100; id++) {
+  for (let id = 0; id < 20; id++) {
     DBX.push(
       new Active({
         id,
@@ -133,7 +133,7 @@ const createMock = () => {
     );
   }
 
-  console.log(`${Date.now()} 生成100个活动数据成功`);
+  console.log(`${Date.now()} 生成20个活动数据成功`);
 };
 
 module.exports = { createMock };

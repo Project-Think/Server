@@ -18,7 +18,7 @@ module.exports = (app) => {
       const data = DBA.filter((item) => {
         return item.isRecommend;
       });
-      if (data.length > 100) data.length = 100;
+      if (data.length > 500) data.length = 500;
       res.json({ code: 200, message: "ok", data });
     });
     // * 返回热门的文章列表数据
@@ -46,7 +46,7 @@ module.exports = (app) => {
       data = data.sort((a, b) => {
         return b.likeCount - a.likeCount;
       });
-      if (data.length > 100) data.length = 100;
+      if (data.length > 500) data.length = 500;
 
       res.json({ code: 200, message: "ok", data });
     });
@@ -58,7 +58,7 @@ module.exports = (app) => {
       data = data.sort((a, b) => {
         return b.date - a.date;
       });
-      if (data.length > 100) data.length = 100;
+      if (data.length > 500) data.length = 500;
       res.json({ code: 200, message: "ok", data });
     });
     // * 根据标签返回文章列表数据
@@ -164,7 +164,7 @@ module.exports = (app) => {
         DBQ[item.questionID].answers = item;
         return DBQ[item.questionID];
       });
-      if (data.length > 100) data.length = 100;
+      if (data.length > 500) data.length = 500;
       res.json({ code: 200, message: "ok", data });
     });
   }
@@ -175,7 +175,7 @@ module.exports = (app) => {
       const data = DBA.filter((item) => {
         return item.type === "news";
       });
-      if (data.length > 100) data.length = 100;
+      if (data.length > 500) data.length = 500;
       res.json({ code: 200, message: "ok", data });
     });
   }
@@ -210,13 +210,29 @@ module.exports = (app) => {
       });
       res.json({ code: 200, message: "ok", data });
     });
+    // * 根据id返回具体的活动
+    app.get("/api/events", (req, res) => {
+      let id = req.query.id;
+      if (id) {
+        try {
+          id = parseInt(id);
+          const data = DBX[id];
+          res.json({ code: 200, message: "ok", data });
+        } catch (e) {
+          res.json({ code: 400, message: "参数异常", data: null });
+        }
+      } else {
+        res.json({ code: 400, message: "缺少必要参数", data: null });
+      }
+    });
+    
   }
   // ! 登录注册
   {
     // ! 注册
     app.post("/api/register", (req, res) => {
       const result = req.body;
-      const {
+      let {
         user_name: name,
         user_phone: phone,
         user_password: password,
@@ -253,7 +269,7 @@ module.exports = (app) => {
     // ! 登录
     app.post("/api/login", (req, res) => {
       const result = req.body;
-      const { user_name: name, user_password: password } = result;
+      let { user_name: name, user_password: password } = result;
       // ! 简单校验
       if (!(name || password)) {
         res.json({ code: 400, message: "数据异常，请重新输入", data: null });
@@ -289,15 +305,12 @@ module.exports = (app) => {
     // 登出
     app.post("/api/logout", (req, res) => {
       // 设置cookie
-      let hour = 3600000;
-      req.session.cookie.expires = new Date(Date.now() + hour);
-      req.session.cookie.maxAge = hour;
       req.session.isLogin = false;
       res.json({
         code: 200,
         message: "ok",
-        data: DBU[i],
+        data: null,
       });
-    }
+    });
   }
 };
