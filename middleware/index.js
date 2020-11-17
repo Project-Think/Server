@@ -290,6 +290,7 @@ module.exports = (app) => {
           message: "账号或者密码错误",
           data: null,
         });
+        return;
       }
       // 设置cookie
       let hour = 3600000;
