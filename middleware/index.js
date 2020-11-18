@@ -218,7 +218,17 @@ module.exports = (app) => {
       let data = DBX.filter((item, index) => {
         return index >= (page - 1) * size && index < page * size;
       });
-      res.json({ code: 200, message: "ok", data });
+      res.json({
+        code: 200,
+        message: "ok",
+        data,
+        pageMessage: {
+          page,
+          total: Math.ceil(DBX.length / size),
+          size,
+          count: DBX.length,
+        },
+      });
     });
     // * 根据id返回具体的活动
     app.get("/api/events", (req, res) => {
