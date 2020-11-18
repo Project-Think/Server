@@ -103,6 +103,7 @@ class Active {
     this.date = obj.date;
     this.city = obj.city || "深圳";
     this.type = obj.type || "未归类";
+    this.comments = obj.comments || []; // 评论对象
   }
 }
 

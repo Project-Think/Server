@@ -1,4 +1,13 @@
-const article_tags = ["前端", "后端", "大数据", "小程序", "iOS"];
+const article_tags = [
+  "前端",
+  "后端",
+  "大数据",
+  "小程序",
+  "iOS",
+  "Android",
+  "Linux",
+  "人工智能",
+];
 
 const article_title = [
   "设计模式大冒险第三关：工厂模式，封装和解耦你的代码",
@@ -26,6 +35,15 @@ const article_title = [
   "R8 编译器: 为 Kotlin 库和应用瘦身",
   "深入探索 Android Gradle 插件的缓存配置",
   "你的开发利器Spring自定义注解",
+  "6张图让你搞懂浏览器渲染网页过程",
+  "设计模式大冒险第三关：工厂模式，封装和解耦你的代码",
+  "你和腾讯资深架构师之间，差的不仅仅是年龄（进阶必看）",
+  "让面试者头大如斗的linux内核30道题",
+  "连续六天：2020 Google 开发者大会官网集结！",
+  "从linux源码看epoll（后台开发者必看）",
+  "处理异步事件的三种方式",
+  "【前端面试】如果使用 JavaScript 原型实现继承",
+  "从 ElementUI 源码的构建流程来看前端 UI 库设计",
 ];
 
 const answer_title = [
@@ -41,6 +59,10 @@ const answer_title = [
   "谷歌浏览器iframe跨域无法获取cookie",
   "vue 为什么要有静态set和实例$set",
   "IDEA 在jsp文件中插入<% for(){ %>html语句<% } %>,这样是错的吗？",
+  "关于swiper中使用elementUI中el-tooltip失效的问题？",
+  "This SQL query can't split into multiple data sources",
+  "vscode Expected type 'object'. Found 'void'. 怎么解决？挺烦人的",
+  "php7.4已经抛弃了get_magic_quotes_gpc这个方法，那么请问这个值在php7.4返回的应该是0还是1呢？",
 ];
 const active_title = [
   "【有奖众测】给HMS Core文档提建议，赢大奖华为Watch！",
@@ -53,12 +75,19 @@ const active_title = [
   "中国DevOps社区峰会2020·成都",
   "2020（第十六届）中国金融风险经理年度总论坛NO.2：投资交易",
   "2020（第十六届）中国金融风险经理年度总论坛NO.1：信用分析",
+  "Google DevFest Shanghai 2020",
+  "2020（第十六届）中国金融风险经理年度总论坛",
+  "IOTE 2021第十五届国际物联网展·上海站",
+  "工业4.0时代企业上云的突围之路-EMQ&涛思&华为",
 ];
 const course_title = [
   "Python Web 在线教育系统搭建攻略",
   "Java高级技术：并发编程",
   "Python 业务开发常见错误案例集",
   "支付系统微服务实战【springboot2.3】",
+  "一个小时彻底弄明白回调, Promise, Async/Await ",
+  "7天玩转Go语言",
+  "前端性能优化",
 ];
 
 module.exports = {

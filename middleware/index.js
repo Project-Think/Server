@@ -2,6 +2,7 @@
 const bodyParser = require("body-parser");
 // 加密密码用的
 const md5 = require("blueimp-md5");
+const { Random: R } = require("mockjs");
 
 module.exports = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -229,6 +230,23 @@ module.exports = (app) => {
       } else {
         res.json({ code: 400, message: "缺少必要参数", data: null });
       }
+    });
+    // * 评论
+    app.post("/api/events/commit", (req, res) => {
+      const result = req.body;
+      console.log(result);
+      let { id, content } = result;
+      // ! 简单校验
+      if (!(id || content)) {
+        res.json({ code: 400, message: "数据不完整，请检查数据", data: null });
+        return;
+      }
+      DBX[id].comments.push({ time: Date.now(), content, name: R.cname() });
+      res.json({
+        code: 200,
+        message: "ok",
+        data: DBX[id].comments,
+      });
     });
   }
   // ! 登录注册
