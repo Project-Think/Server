@@ -51,7 +51,7 @@ const createMock = () => {
         viewCount: R.integer(0, 10000),
         date: Date.now() - R.integer(1000 * 60, 1000 * 60 * 60 * 24 * 30),
         content: R.cparagraph(5, 300),
-        imgUrl: "http://39.108.227.2:8888/img/" + R.integer(0, 6) + ".jpg",
+        imgUrl: "http://39.108.227.2:8888/img/" + R.integer(0, 20) + ".jpg",
       })
     );
   }
@@ -115,15 +115,15 @@ const createMock = () => {
   }
   console.log(`${Date.now()} 生成100个课程数据成功`);
 
-  // 生成20个活动
+  // 生成活动
   global.DBX = [];
-  for (let id = 0; id < 20; id++) {
+  for (let id = 0; id < 500; id++) {
     DBX.push(
       new Active({
         id,
         title: R.pick(active_title),
         imgUrl:
-          "http://39.108.227.2:8888/img/course/" + R.integer(0, 6) + ".jpg",
+          "http://39.108.227.2:8888/img/course/" + R.integer(0, 20) + ".jpg",
         time: Date.now() + R.integer(0, 1000 * 60 * 60 * 24 * 365),
         time2: R.integer(1, 72),
         date: Date.now() - R.integer(0, 1000 * 60 * 60 * 24 * 30),

@@ -211,8 +211,12 @@ module.exports = (app) => {
   {
     // * 返回活动列表数据
     app.get("/api/events/list", (req, res) => {
-      let data = DBX.filter((item) => {
-        return true;
+      let { page, size } = req.query;
+      // 默认值
+      page = page || 1;
+      size = size || 20;
+      let data = DBX.filter((item, index) => {
+        return index >= (page - 1) * size && index < page * size;
       });
       res.json({ code: 200, message: "ok", data });
     });
