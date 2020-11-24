@@ -17,6 +17,7 @@
     "express-session": "^1.17.1",
     "express-ws": "^4.0.0",
     "mockjs": "^1.1.0",
-    "mongoose": "^5.10.14"
+    "mongoose": "^5.10.14",
+    "sqlite3": "^5.0.0"
   }
 }

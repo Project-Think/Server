@@ -14,6 +14,7 @@ class User {
   }
 }
 
+
 // ! 文章对象
 class Article {
   constructor(obj) {

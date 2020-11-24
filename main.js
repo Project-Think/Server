@@ -34,6 +34,10 @@ middleware(app);
 const { createMock } = require("./mock");
 createMock();
 
+// 读取数据库数据
+const readDB = require("./database");
+readDB();
+
 // 启动服务器
 app.listen(port, () => {
   console.log(`服务器成功运行在 ${port} 端口`);

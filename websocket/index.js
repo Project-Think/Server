@@ -6,6 +6,7 @@ expressWS(router);
 
 router.ws("/server", (ws, req) => {
   try {
+    
   } catch (error) {
     console.log(error);
   }

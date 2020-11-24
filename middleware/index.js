@@ -248,14 +248,13 @@ module.exports = (app) => {
     // * 评论
     app.post("/api/events/commit", (req, res) => {
       const result = req.body;
-      console.log(result);
       let { id, content } = result;
       // ! 简单校验
       if (!(id || content)) {
         res.json({ code: 400, message: "数据不完整，请检查数据", data: null });
         return;
       }
-      DBX[id].comments.push({ time: Date.now(), content, name: R.cname() });
+      DBX[id].comments.unshift({ time: Date.now(), content, name: R.cname() });
       res.json({
         code: 200,
         message: "ok",
@@ -266,7 +265,7 @@ module.exports = (app) => {
   // ! 登录注册
   {
     // ! 注册
-    app.post("/api/register", (req, res) => {
+    app.post("/api/register", async (req, res) => {
       const result = req.body;
       console.log(result);
       let {
@@ -295,6 +294,9 @@ module.exports = (app) => {
       // 存入数据库
       const { Random: R } = require("mockjs");
       DBU.push({ id: DBU.length, name, password, phone, token: R.string(63) });
+      // 插入数据库操作
+      const { userInsert } = require("../database/user");
+      await userInsert(DBU(DBU.length - 1));
       // 设置cookie
       let hour = 3600000;
       req.session.cookie.expires = new Date(Date.now() + hour);
